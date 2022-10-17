@@ -40,20 +40,21 @@ void loop() {
   }
   //spin motor at selected RPM
   else {
+    Serial.println("here");
     pwm.setPWM(0, 0, motor_command);
   }
 
 }
 
 void event(){
-    //TODO: improve RPM calculation
-  if (millis() - lastMeasured > 1000){
-    pulseCount = (pulseCount/6)*60; //RPM = RPS * 60
-    Serial.println(pulseCount);
-    lastMeasured = millis();
-    pulseCount = 0;
-  }
-  else {
-    pulseCount++;
-  }
+//    //TODO: improve RPM calculation
+//  if (millis() - lastMeasured > 1000){
+//    pulseCount = (pulseCount/6)*60; //RPM = RPS * 60
+//    Serial.println(pulseCount);
+//    lastMeasured = millis();
+//    pulseCount = 0;
+//  }
+//  else {
+//    pulseCount++;
+//  }
 }

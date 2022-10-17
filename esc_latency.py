@@ -18,7 +18,6 @@ print(t)
 # send command to arm motor
 ser.write(str(arm).encode())
 time.sleep(1)
-
 while 1:
     new_speed = input("Enter value between 1000 and 2000: ")
     ser.write(str(new_speed).encode())
