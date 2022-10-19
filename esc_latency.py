@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import time
 
 ser = serial.Serial('/dev/cu.usbmodem14101',9600)
-time.sleep(5)
+time.sleep(3)
 ser.flushInput()
 ser.flushOutput()
 
@@ -13,7 +13,7 @@ data = []
 
 print('write arm')
 ser.write((str(command)+'\n').encode()) #arm motor
-time.sleep(2.5)
+time.sleep(3)
 
 command = 1000
 ser.write((str(command)+'\n').encode()) #spin motor

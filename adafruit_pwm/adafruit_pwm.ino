@@ -16,6 +16,12 @@ int motor_command = 0; //the motor speed that esc_latency sends
 int pulseCount = 0;
 int lastMeasured = 0;
 
+double period;
+double freq;
+double num_events = 0;
+double RPM;
+double RPM_avg = 0;
+
 
 void setup() {
   Serial.begin(9600);
@@ -32,7 +38,7 @@ void setup() {
 void loop() {
   //set motor RPM
   if (Serial.available()){ //we receive signal to change motor RPM
-    String input = Serial.readStringUntil('\n'); //default setTimeout() == 1000ms
+    String input = Serial.readStringUntil('\n');
     motor_command = input.toInt();
 
     pwm.setPWM(0, 0, motor_command);
@@ -46,11 +52,20 @@ void event(){
   if(pulseCount == 6){
     //get period for one revolution
     double micro = millis();
-    double period = micro - lastMeasured;
-    double freq = 1000/period;
-    Serial.println(freq*60); //send data to serial
+    period = micro - lastMeasured;
+    freq = 1000/period;
+    RPM = freq*60;
+    RPM_avg += RPM;
+    if(num_events == 5){ //send avg of data to serial
+      Serial.println(RPM_avg/5);
+      RPM_avg = 0;
+      num_events = -1;
+    }
     lastMeasured = micro;
     pulseCount = 0;
+    num_events++;
   }
-  pulseCount++;
+  else{
+    pulseCount++;
+  }
 }
