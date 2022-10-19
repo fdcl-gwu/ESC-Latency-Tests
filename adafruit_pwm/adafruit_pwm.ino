@@ -32,29 +32,25 @@ void setup() {
 void loop() {
   //set motor RPM
   if (Serial.available()){ //we receive signal to change motor RPM
-    String input = Serial.readString(); //default setTimeout() == 1000ms
+    String input = Serial.readStringUntil('\n'); //default setTimeout() == 1000ms
     motor_command = input.toInt();
 
     pwm.setPWM(0, 0, motor_command);
     Serial.println(motor_command);
   }
-  //spin motor at selected RPM
-  else {
-    Serial.println("here");
-    pwm.setPWM(0, 0, motor_command);
-  }
+  pwm.setPWM(0, 0, motor_command);
 
 }
 
 void event(){
-//    //TODO: improve RPM calculation
-//  if (millis() - lastMeasured > 1000){
-//    pulseCount = (pulseCount/6)*60; //RPM = RPS * 60
-//    Serial.println(pulseCount);
-//    lastMeasured = millis();
-//    pulseCount = 0;
-//  }
-//  else {
-//    pulseCount++;
-//  }
+  if(pulseCount == 6){
+    //get period for one revolution
+    double micro = millis();
+    double period = micro - lastMeasured;
+    double freq = 1000/period;
+    Serial.println(freq*60); //send data to serial
+    lastMeasured = micro;
+    pulseCount = 0;
+  }
+  pulseCount++;
 }

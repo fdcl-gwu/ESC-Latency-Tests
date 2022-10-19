@@ -1,26 +1,37 @@
 import serial
 import numpy as np
-import matplotlib.pyplot as pyplot
+import matplotlib.pyplot as plt
 import time
 
 ser = serial.Serial('/dev/cu.usbmodem14101',9600)
-time.sleep(2)
+time.sleep(5)
 ser.flushInput()
 ser.flushOutput()
 
-arm = 700
+command = 700
 data = []
 
-# to get time, use time.time()
-t = time.time()
-print(t)
+print('write arm')
+ser.write((str(command)+'\n').encode()) #arm motor
+time.sleep(2.5)
 
-# send command to arm motor
-ser.write(str(arm).encode())
-time.sleep(1)
-while 1:
-    new_speed = input("Enter value between 1000 and 2000: ")
-    ser.write(str(new_speed).encode())
-    time.sleep(1)
+command = 1000
+ser.write((str(command)+'\n').encode()) #spin motor
+
+input("Enter value to begin reading")
+#read serial for 5 seconds
+start = time.time()
+# while (time.time() - start) <  10:
+#     input_byte = serial.readline()
+#     string = input_byte.decode()
+#     string = string.rstrip()
+#     RPM = float(string)
+#     data.append(RPM)
+
+# plt.plot(data)
+# plt.xlabel('Time')
+# plt.ylabel('RPM')
+# plt.title('')
+# plt.show()
 
 ser.close()
