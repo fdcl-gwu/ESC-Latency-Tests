@@ -13,25 +13,39 @@ data = []
 
 print('write arm')
 ser.write((str(command)+'\n').encode()) #arm motor
-time.sleep(3)
+time.sleep(2.75)
 
+ser.flushInput()
+ser.flushOutput()
 command = 1000
+print('write spin')
 ser.write((str(command)+'\n').encode()) #spin motor
 
-input("Enter value to begin reading")
+input("Press Enter to begin reading")
 #read serial for 5 seconds
 start = time.time()
-# while (time.time() - start) <  10:
-#     input_byte = serial.readline()
-#     string = input_byte.decode()
-#     string = string.rstrip()
-#     RPM = float(string)
-#     data.append(RPM)
+while (time.time() - start) <  5:
+    ser.flushInput()
+    ser.flushOutput()
+    input_byte = ser.readline()
+    string = input_byte.decode()
+    string = string.rstrip()
+    RPM = float(string)
+    data.append(RPM)
+    print(RPM)
 
-# plt.plot(data)
-# plt.xlabel('Time')
-# plt.ylabel('RPM')
-# plt.title('')
-# plt.show()
+# spin motor at second speed
+ser.flushInput()
+ser.flushOutput()
+command = 1200
+print('write spin')
+ser.write((str(command)+'\n').encode()) #spin motor
+
+
+plt.plot(data)
+plt.xlabel('Time')
+plt.ylabel('RPM')
+plt.title('')
+plt.show()
 
 ser.close()
