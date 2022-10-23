@@ -35,23 +35,24 @@ while (time.time() - start) <  5:
     print(RPM)
 
 # spin motor at second speed
-for i in range(1,3):
+ser.flushInput()
+ser.flushOutput()
+command+=10
+ser.write((str(command)+'\n').encode()) #spin motor
+latency_begin = time.time()
+
+start = time.time()
+while (time.time() - start) <  5:
     ser.flushInput()
     ser.flushOutput()
-    command+=10
-    print(command)
-    print('\n')
-    ser.write((str(command)+'\n').encode()) #spin motor
-    start = time.time()
-    while (time.time() - start) <  5:
-        ser.flushInput()
-        ser.flushOutput()
-        input_byte = ser.readline()
-        string = input_byte.decode()
-        string = string.rstrip()
-        RPM = float(string)
-        data.append(RPM)
-        print(RPM)
+    input_byte = ser.readline()
+    string = input_byte.decode()
+    string = string.rstrip()
+    RPM = float(string)
+    data.append(RPM)
+    if RPM >= 2000:
+        latency_end = time.time()
+    print(RPM)
 
 #stop motor
 ser.flushInput()
@@ -68,4 +69,5 @@ plt.ylabel('RPM')
 plt.title('')
 plt.show()
 
+print("Latency = ", latency_end-latency_begin)
 ser.close()
