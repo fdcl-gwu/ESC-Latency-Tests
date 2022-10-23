@@ -35,12 +35,32 @@ while (time.time() - start) <  5:
     print(RPM)
 
 # spin motor at second speed
+for i in range(1,3):
+    ser.flushInput()
+    ser.flushOutput()
+    command+=10
+    print(command)
+    print('\n')
+    ser.write((str(command)+'\n').encode()) #spin motor
+    start = time.time()
+    while (time.time() - start) <  5:
+        ser.flushInput()
+        ser.flushOutput()
+        input_byte = ser.readline()
+        string = input_byte.decode()
+        string = string.rstrip()
+        RPM = float(string)
+        data.append(RPM)
+        print(RPM)
+
+#stop motor
 ser.flushInput()
 ser.flushOutput()
-command = 1200
-print('write spin')
+command = 0
+print(command)
+print('\n')
 ser.write((str(command)+'\n').encode()) #spin motor
-
+time.sleep(0.25)
 
 plt.plot(data)
 plt.xlabel('Time')
