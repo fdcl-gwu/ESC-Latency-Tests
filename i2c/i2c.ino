@@ -1,6 +1,6 @@
 #include <Wire.h>
 
-#define TWI_BLCTRL_BASEADDR 0x52
+#define TWI_BLCTRL_BASEADDR 0x2D
 
 int motor_command = 0; //the motor speed that esc_latency sends
 int pulseCount = 0;
