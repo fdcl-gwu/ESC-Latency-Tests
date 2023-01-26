@@ -15,15 +15,15 @@ void setup() {
 
 void loop() {
   //set motor RPM
-  Serial.println(millis());
-  if(millis()-startMillis <= 5000){
-    motor_command = 10;
-  }
-  else{
-    motor_command = 20;
+  if (Serial.available()){ //we receive signal to change motor RPM
+    String input = Serial.readStringUntil('\n');
+    Serial.println(1234); //test input to see if serial comm. is working
+    motor_command = input.toInt();
+
+    send_command(motor_command);
+    Serial.println(motor_command);
   }
   send_command(motor_command);
-
 }
 
 void send_command(int cmd){

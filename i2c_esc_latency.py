@@ -3,23 +3,25 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+latency_end = 0
+
 ser = serial.Serial('/dev/cu.usbmodem14101',9600)
 time.sleep(3)
 ser.flushInput()
 ser.flushOutput()
 
-command = 5
 data = []
-
-print('write arm')
-ser.write((str(command)+'\n').encode()) #arm motor
-time.sleep(2.75)
 
 ser.flushInput()
 ser.flushOutput()
-command = 10
+command = 20
 print('write spin')
 ser.write((str(command)+'\n').encode()) #spin motor
+# test below
+input_byte = ser.readline()
+string = input_byte.decode()
+print('string_spin = ' + string);
+# test above
 
 input("Press Enter to begin reading")
 #read serial for 5 seconds
@@ -50,7 +52,7 @@ while (time.time() - start) <  5:
     string = string.rstrip()
     RPM = float(string)
     data.append(RPM)
-    if RPM >= 2000:
+    if RPM >= 1390:
         latency_end = time.time()
     print(RPM)
 
@@ -66,7 +68,7 @@ time.sleep(0.25)
 plt.plot(data)
 plt.xlabel('Time')
 plt.ylabel('RPM')
-plt.title('')
+plt.title('I2C Data')
 plt.show()
 
 print("Latency = ", latency_end-latency_begin)
