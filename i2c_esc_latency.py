@@ -11,6 +11,7 @@ ser.flushInput()
 ser.flushOutput()
 
 data = []
+latency_flag = 1
 
 ser.flushInput()
 ser.flushOutput()
@@ -53,7 +54,9 @@ while (time.time() - start) <  5:
     RPM = float(string)
     data.append(RPM)
     if RPM >= 1390:
-        latency_end = time.time()
+        if latency_flag:
+            latency_end = time.time()
+            latency_flag = 0
     print(RPM)
 
 #stop motor
