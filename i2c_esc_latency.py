@@ -40,7 +40,7 @@ while (time.time() - start) <  5:
 # spin motor at second speed
 ser.flushInput()
 ser.flushOutput()
-command+=10
+command+=20
 ser.write((str(command)+'\n').encode()) #spin motor
 latency_begin = time.time()
 
@@ -53,7 +53,7 @@ while (time.time() - start) <  5:
     string = string.rstrip()
     RPM = float(string)
     data.append(RPM)
-    if RPM >= 1390:
+    if RPM > 2000:
         if latency_flag:
             latency_end = time.time()
             latency_flag = 0

@@ -46,12 +46,9 @@ void loop() {
 }
  
 void event(){
-  double cur_millis = millis();    
-  if(cur_millis-lastEvent <= 1){
-    return;
-  }
+  unsigned long cur_millis = millis();    
 //  Serial.println(pulseCount);
-  if(pulseCount == 12){ //interrupt occurring on rising and falling?
+  if(pulseCount == 6){ //interrupt occurring on rising and falling?
     //get period for one revolution
     period = cur_millis - lastMeasured;
     freq = 1000/period;

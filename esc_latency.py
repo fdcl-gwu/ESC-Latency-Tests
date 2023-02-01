@@ -51,7 +51,7 @@ while (time.time() - start) <  5:
     string = string.rstrip()
     RPM = float(string)
     data.append(RPM)
-    if RPM >= 2000:
+    if RPM >= 3500:
         if latency_flag:
             latency_end = time.time()
             latency_flag = 0
