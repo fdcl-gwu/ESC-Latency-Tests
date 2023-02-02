@@ -15,7 +15,7 @@ latency_flag = 1
 
 ser.flushInput()
 ser.flushOutput()
-command = 10
+command = 20
 print('write spin')
 ser.write((str(command)+'\n').encode()) #spin motor
 # test below
@@ -70,7 +70,7 @@ time.sleep(0.25)
 
 filtered_data = []
 for x in data:
-    if(x > 500):
+    if(x > 500 and x < 4000):
         filtered_data.append(x)
 
 plt.plot(filtered_data)

@@ -51,7 +51,7 @@ while (time.time() - start) <  5:
     string = string.rstrip()
     RPM = float(string)
     data.append(RPM)
-    if RPM >= 3500:
+    if (RPM >= 3000 and RPM < 5000):
         if latency_flag:
             latency_end = time.time()
             latency_flag = 0
@@ -66,7 +66,12 @@ print('\n')
 ser.write((str(command)+'\n').encode()) #spin motor
 time.sleep(0.25)
 
-plt.plot(data)
+filtered_data = []
+for x in data:
+    if(x > 500 and x < 4000):
+        filtered_data.append(x)
+
+plt.plot(filtered_data)
 plt.xlabel('Time')
 plt.ylabel('RPM')
 plt.title('')
