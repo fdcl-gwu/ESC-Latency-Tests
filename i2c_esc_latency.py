@@ -15,7 +15,7 @@ latency_flag = 1
 
 ser.flushInput()
 ser.flushOutput()
-command = 20
+command = 10
 print('write spin')
 ser.write((str(command)+'\n').encode()) #spin motor
 # test below
@@ -53,8 +53,8 @@ while (time.time() - start) <  5:
     string = string.rstrip()
     RPM = float(string)
     data.append(RPM)
-    if RPM > 2000:
-        if latency_flag:
+    if (RPM >= 2500 and RPM < 5000):
+        if latency_flag == 1:
             latency_end = time.time()
             latency_flag = 0
     print(RPM)
@@ -68,11 +68,18 @@ print('\n')
 ser.write((str(command)+'\n').encode()) #spin motor
 time.sleep(0.25)
 
-plt.plot(data)
+filtered_data = []
+for x in data:
+    if(x > 500):
+        filtered_data.append(x)
+
+plt.plot(filtered_data)
 plt.xlabel('Time')
 plt.ylabel('RPM')
 plt.title('I2C Data')
 plt.show()
 
 print("Latency = ", latency_end-latency_begin)
+print(latency_begin)
+print(latency_end)
 ser.close()
