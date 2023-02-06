@@ -74,7 +74,7 @@ for x in data:
 plt.plot(filtered_data)
 plt.xlabel('Time')
 plt.ylabel('RPM')
-plt.title('')
+plt.title('PWM Data')
 plt.show()
 
 print("Latency = ", latency_end-latency_begin)
