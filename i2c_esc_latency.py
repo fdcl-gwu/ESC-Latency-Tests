@@ -1,3 +1,7 @@
+# Desctiption: simialr to esc_latency.py, but latency calculation is done 
+# in adafruit_pwm_lat.ino, and not just the python script (see README). 
+# Prints result to terminal.
+
 import serial
 import numpy as np
 import matplotlib.pyplot as plt

@@ -1,5 +1,6 @@
-// Desctiption: same as adafruit_pwm.ino, but latency calculation is done 
-// in this file, and not the python script. Prints result to terminal.
+// Desctiption: similar to adafruit_pwm.ino, but latency calculation is done 
+// in this file, and not just the python script (see README). 
+// Prints result to terminal.
 
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
