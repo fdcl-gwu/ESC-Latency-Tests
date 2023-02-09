@@ -1,3 +1,6 @@
+# Description: sends commands to arduino (adafruit_pwm.ino or adafruit_pwm_pat.ino)
+# to spin motor, and reads in tachometer RPM data.
+
 import serial
 import numpy as np
 import matplotlib.pyplot as plt

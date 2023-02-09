@@ -8,7 +8,7 @@ This repository contains code to test the latency of PWM and I2C ESCs. Latency r
     - connect ESC signal and ground to Adafruit Driver 
     - Connect Adafruit Driver VCC, SDA, SCL, and GND pins to Arduino
 3. For I2C:
-    - Connect SDA and SCL to respective pins on Arduino (20 and 21 on Mega)
+    - Connect ESC SDA and SCL to respective pins on Arduino (20 and 21 on Mega)
     - NOTE: you may need pull up resistors for SDA and SCL
 4. Wire the Digital Tachometer to a digital pin on Arduino (https://www.aliexpress.com/i/2251832549134134.html?gatewayAdapt=4itemAdapt).
 5. Attach an encoder wheel (or black wheel with spokes) to the motor shaft.
@@ -20,6 +20,13 @@ This repository contains code to test the latency of PWM and I2C ESCs. Latency r
 - Use adafruit_pwm_lat.ino and esc_latency.py. When viewing the terminal output of the python script, there will be two latency values from the arduino (values greater than 8000) which are printed around the time of the increase in motor speed. These are the beginning and end times of the arduino's latency calculation, and their difference is the latency in milliseconds.
 - adafruit_pwm.ino only includes the python latency value, not the arduino one (which is more precise).
 - ESC Used: Multistar BLHeli-S 20A 2-4s V3.0
+<br>
+### Information about i2c-to-pwm:
+- Function: **pwm.setPWM(0, low_tick, high_tick)** 
+    - low_tick is the beginning of pwm duty cycle, and high_tick is the end of the pwm duty cycle. Values can range between 0-4095. 
+    - For ESCs, motors arm when the difference betwewen high_tick-low_tick = 700
+    - Lowest speed is when difference between high_tick-low_tick = 810
+- see https://learn.adafruit.com/16-channel-pwm-servo-driver?view=all for additional details 
 <br><br>
 
 ## I2C ESC: 

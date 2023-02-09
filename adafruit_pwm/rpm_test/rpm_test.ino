@@ -1,3 +1,7 @@
+// Description: tests whether rpm tachometer is correctly reading RPM values.
+// Certain lines can be uncommented to print additional stats to terminal, or
+// to calculate average RPM.
+
 //Sketch to test RPM sensor, and increase accuracy
 int pulseCount = 0;
 int lastMeasured = 0;
