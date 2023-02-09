@@ -15,7 +15,7 @@ This repository contains code to test the latency of PWM and I2C ESCs. Latency r
 6. Place tachometer so that wheel passes through IR sensor of the tachometer.
 <br><br>
 
-## PWM ESC: (# pwm)
+## PWM ESC:
 - Using Adafruit 16-channel 12-bit PWM Driver to convert I2C to PWM signal (https://www.adafruit.com/product/815).
 - Use adafruit_pwm_lat.ino and esc_latency.py. When viewing the terminal output of the python script, there will be two latency values from the arduino (values greater than 8000) which are printed around the time of the increase in motor speed. These are the beginning and end times of the arduino's latency calculation, and their difference is the latency in milliseconds.
 - adafruit_pwm.ino only includes the python latency value, not the arduino one (which is more precise).
